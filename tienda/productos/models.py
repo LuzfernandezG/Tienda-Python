@@ -13,6 +13,8 @@ class Productos(models.Model):
     precio = models.FloatField(max_length=10, null=True, blank=True) 
     existencia = models.IntegerField(max_length=10, null=True, blank=True)
     id_categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING, verbose_name="categoria", related_name='categoria')
+    estado = models.BooleanField(default=True)
+    imagen = models.ImageField(upload_to='productos', null=True, blank=True)
     
 
 

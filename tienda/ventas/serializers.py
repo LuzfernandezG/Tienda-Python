@@ -1,11 +1,25 @@
 from rest_framework import serializers
-from .models import Venta, VentaItems
+from .models import Cliente, Venta, VentaItems
+from productos.models import Productos
+from productos.serializers import ProductoSerializer
 
-class ProductoSerializer(serializers.ModelSerializer):
+
+class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Productos
-        fields = ['id', 'nombre', 'precio']
+        model = Cliente
+        fields = [
+            'id',
+            'nombre',
+            'telefono',
+            'cedula',
+            'correo'
+        ]
 
+    def validate_cedula(self, value):
+        if Cliente.objects.filter(cedula=value).exists():
+            raise serializers.ValidationError("El cliente ya existe")
+        return value
+    
 class VentaItemSerializer(serializers.ModelSerializer):
     producto = ProductoSerializer(read_only=True)
 
