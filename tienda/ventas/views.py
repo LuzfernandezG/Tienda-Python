@@ -19,7 +19,7 @@ from rest_framework import status
 from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import IsAuthenticated
 
-from .serializers import ClienteSerializer
+from .serializers import ClienteSerializer, VentaSerializer
 
 
 class Clientes(APIView):
@@ -75,35 +75,52 @@ class Ventas(APIView):
         return Response({"error": "Cliente sin ventas"}, status=status.HTTP_404_NOT_FOUND)
            
     def post(self, request ):
-        console.log(request.data)
-        data = request.data['venta']
-        creacion_cliente = Venta (
-                metodo_de_pago=data['metodo_de_pago'],
-                metodo_de_venta=data['metodo_de_venta'],
-                total=data['total_venta'],
-                estado=data['estado'],
-                id_cliente_id=data['id_cliente']
-            )  
-        creacion_cliente.save()
         
-        for item in request.data['items']:
-                VentaItems.objects.create(
-                    cantidad=item['cantidad'],
-                    total=item['total'],
-                    id_producto_id=item['id_producto'],
-                    id_venta_id= creacion_cliente.id
-                )
-                producto = Productos.objects.get(id=item["id_producto"]) 
+        console.log(request.data)
+        # console.log(usuario)
+
+        serializer = VentaSerializer(data=request.data)
+        if serializer.is_valid():
+
+            # console.log(serializer.data)
+            console.log("Si SAlio SO")
+            serializer.save()
+            
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+        # return Response({"response" : "creado"}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        # console.log(request.data)
+        # data = request.data['venta']
+        
+        # creacion_cliente = Venta (
+        #         metodo_de_pago=data['metodo_de_pago'],
+        #         metodo_de_venta=data['metodo_de_venta'],
+        #         total=data['total_venta'],
+        #         estado=data['estado'],
+        #         id_cliente_id=data['id_cliente']
+        #     )  
+        # creacion_cliente.save()
+        
+        # for item in request.data['items']:
+        #         VentaItems.objects.create(
+        #             cantidad=item['cantidad'],
+        #             total=item['total'],
+        #             id_producto_id=item['id_producto'],
+        #             id_venta_id= creacion_cliente.id
+        #         )
+        #         producto = Productos.objects.get(id=item["id_producto"]) 
                
-                if producto.existencia >= item['cantidad']:
-                    producto.existencia -= item['cantidad']  # Resta la cantidad vendida
-                    producto.save()  # Guarda los cambios
-                else:
-                    return Response({"error": "No hay suficiente existencia para el producto con id {}".format(item["id_producto"])}, status=status.HTTP_400_BAD_REQUEST)
+        #         if producto.existencia >= item['cantidad']:
+        #             producto.existencia -= item['cantidad']  # Resta la cantidad vendida
+        #             producto.save()  # Guarda los cambios
+        #         else:
+        #             return Response({"error": "No hay suficiente existencia para el producto con id {}".format(item["id_producto"])}, status=status.HTTP_400_BAD_REQUEST)
                 
           
 
-        return Response({"recibido" : "ok"}, status=status.HTTP_200_OK)
+        # return Response({"recibido" : "ok"}, status=status.HTTP_200_OK)
 
 
     

@@ -46,6 +46,7 @@ class Categorias(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+    
     def delete(self, request ):
         console.log(request.query_params)
         
@@ -142,6 +143,7 @@ class Producticos(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
     
     #ELIMINA EL PRODUCTO TENIENDO EN CUENTA SU ID 
     def delete(self, request ):
