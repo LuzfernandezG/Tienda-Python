@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import environ
 import os
 from pathlib import Path
+from corsheaders.defaults import default_headers
 
 # environ init
 env = environ.Env()
@@ -46,10 +47,13 @@ INSTALLED_APPS = [
     'productos',
     'ventas',
     'rest_framework',
+    'corsheaders',
     
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # Debe ir antes de CommonMiddleware
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,6 +64,27 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'tienda.urls'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Cambia esto a la URL de tu frontend
+      # Agrega más URLs según sea necesario
+]
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS",
+]
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'my-custom-header',
+]
+
+CORS_ALLOW_CREDENTIALS = True 
 
 TEMPLATES = [
     {
