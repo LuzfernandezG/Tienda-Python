@@ -75,7 +75,7 @@ export default {
     transition: background-color  0.4s ease;
     transition: color  0.3s ease;
     height: 15rem;
-    padding: 2rem;
+    padding: 1rem;
 }
 .des{
     background-color: orange;

@@ -1,6 +1,17 @@
 <template>
   <div class="header">
-        <h1 style="color: white;">Minimarket <span style="font-weight: bold;">Lupita</span></h1>
+    <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; padding-top: 10px;">
+        <h1 style="font-size: 2rem; color: white;">
+          <span style="color: orange">Mini</span>market
+        </h1>
+        <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 48 48" style="color: orange">
+          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M39.048 29.602H22.615c-.645 0-1.142-.57-1.054-1.21l2.481-18.048a.613.613 0 0 0-.607-.696h-3.5" />
+          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M23.752 12.453h17.955c.47 0 .838.408.789.876l-1.002 9.55a2.024 2.024 0 0 1-2.012 1.812H22.07m-4.491-8.185H12.07m4.546 6.438H5.5" />
+          <ellipse cx="21.66" cy="35.526" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" rx="3.086" ry="2.588" transform="rotate(-42.481 21.66 35.525)" />
+          <ellipse cx="36.295" cy="35.526" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" rx="3.086" ry="2.588" transform="rotate(-42.481 36.295 35.526)" />
+        </svg>
+      </div>
+    
       <div class="contenido">
         <router-link to="/dashboard/pago" style="text-decoration: none; color: white;">
           <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24" class="cerrar"><path fill="currentColor" d="M6 5h11a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3M4 17a2 2 0 0 0 2 2h5v-3H4zm7-5H4v3h7zm6 7a2 2 0 0 0 2-2v-1h-7v3zm2-7h-7v3h7zM4 11h7V8H4zm8 0h7V8h-7z"/></svg>
@@ -70,10 +81,11 @@ setup() {
 
 <style>
 .header {
-  background-color: black; /**rgb(6, 0, 96)/ */
+  background-color: black; 
   width: 100%;
-  padding: 2rem 3rem;
+  padding: 0.5rem 3rem;
   display: flex;
+  
 }
 .contenido {
   display: flex;
@@ -86,7 +98,6 @@ setup() {
   padding-top: 1rem;
   transition: color 0.3s ease;
 }
-
 .cerrar:hover {
   color: orange;
 }

@@ -7,6 +7,7 @@ from .models import Cliente, Venta, VentaItems
 @admin.register(Cliente)
 class categoriasAdmin(admin.ModelAdmin):
     list_display = [
+        "id",
         "nombre",
         "telefono",
         "cedula",

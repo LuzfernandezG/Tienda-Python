@@ -7,20 +7,20 @@ html, body, #app {
 }
 
 html {
-  /* background-image: url(../public/fondo.png); */
-  background-image: repeating-linear-gradient(
+  background-image: url(../public/fondo2.png);
+  /* background-image: repeating-linear-gradient(
     -45deg,
     #3498db,
     #3498db 20px,
     #ffffff 20px,
     #fcfcfc 40px
-  );
+  ); */
     /* background-image: url(../public/1.webp); */
   background-size: cover;          /* Escala la imagen para cubrir todo el fondo */
   background-position: center;  
   background-repeat: no-repeat;
 }
-h1,button{
+h1,button,label,p{
   font-family: "League Spartan", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;

@@ -1,24 +1,22 @@
 <template>
-  <div class="catalogo">
-    <h1 style="margin-top: 1rem;">Catálogo {{ nombre }}</h1>
+  <div class="fondo">
+
+    <div class="catalogo">
+      
+    <h1 style="margin-top: 1rem;color:orange">Catálogo {{ nombre }}</h1>
 
     <div class="barra-busqueda">
       <label for="categoria" class="label-categoria">Selecciona una categoría:</label>
       <select @change.prevent="seleccion($event.target.value)" class="select-categoria">
         <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">
+          
           {{ categoria.nombre }}
         </option>
       </select>
     </div>
 
     <!-- Muestra el nombre de la categoría seleccionada -->
-  
-  </div>
-
- 
-  <!-- <hr style="border: none; height: 2px; background-color: white; width: 95%; margin: 20px auto;"> -->
-
-<div class="productos">
+    <div class="productos">
   <CardProductos 
     v-for="producto in productos" 
     :key="producto.id" 
@@ -27,14 +25,26 @@
     :precio="producto.precio" 
     :existencia="producto.existencia" 
     :id="producto.id"
+    :ruta="producto.imagen"
     :carrito="carrito"
-  />
+
+  
+    />
 </div>
 
 <!-- Mensaje cuando no hay productos -->
 <p v-if="productos.length === 0" class="mensaje-sin-productos">
-  No hay productos coincidentes a la categoría.
+  No hay productos.
 </p>
+  
+  </div>
+    </div>
+  
+
+ 
+
+
+
 </template>
 
 <script>
@@ -51,6 +61,7 @@ export default {
     const productos = ref([]);
     const nombre = ref("");
     const pedido = ref([]);
+   
 
     async function ListarCategorias() {
       try {
@@ -67,16 +78,22 @@ export default {
       try {
         const response = await Productos(id);
         console.log(response);
+        
+        const direccionBase = 'http://127.0.0.1:8001';
+        response.Productos.forEach(producto => {
+          producto.imagen = `${direccionBase}${producto.imagen}`;
+        });
         productos.value = response.Productos;
-
-        // Obtener el nombre de la categoría seleccionada
+        console.log(productos.value);
+  
+  
         const categoriaSeleccionada = categorias.value.find(c => c.id == id);
         nombre.value = categoriaSeleccionada ? categoriaSeleccionada.nombre : "";
       } catch (error) {
         console.error("Error fetching productos:", error);
       }
     }
-
+  
     async function carrito(data) {
       console.log("dato ingresado", data);
       pedido.value = [...pedido.value,data]; // Modificar la asignación para usar pedido.value
@@ -96,20 +113,23 @@ export default {
       productos,
       nombre,
       carrito,
-      pedido
+      pedido,
+    
+      
     };
   }
 }
 </script>
 
 <style>
+
 .catalogo {
   padding: 12px 3rem;
-  color: black;
+  color: white;
   display: flex;
   flex-direction: column;
-  background-color: white;
-  align-items: center;
+
+ 
 }
 
 .barra-busqueda {
@@ -122,7 +142,7 @@ export default {
 .label-categoria {
   margin-bottom: 0.5rem; /* Espacio debajo de la etiqueta */
   font-weight: bold; /* Estilo para la etiqueta */
-  color: #333; /* Color de la etiqueta */
+  color:white
 }
 
 .select-categoria {
@@ -147,8 +167,12 @@ export default {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem; /* Espaciado entre productos */
-  padding: 2rem;
+  padding: 1rem 1rem;
   background-color: transparent;
+  height: 65vh;
+  overflow-y: scroll;
+  
+
 }
 
 .nombre {
@@ -162,6 +186,6 @@ margin-top: 10px;
   color: white; /* Color del mensaje */
   text-align: center;
   margin-top: 1rem;
-  font-size: 2rem; /* Espacio por encima del mensaje */
+  font-size: 1.5rem; /* Espacio por encima del mensaje */
 }
 </style>

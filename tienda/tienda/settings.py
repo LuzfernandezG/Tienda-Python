@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'ventas',
     'rest_framework',
     'corsheaders',
+    'django_extensions',
     
 ]
 

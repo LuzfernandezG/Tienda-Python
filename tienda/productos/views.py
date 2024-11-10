@@ -98,6 +98,12 @@ class Producticos(APIView):
         
     #     return Response({"Error":"El valor a buscar no tiene informacion coincidente"}, status=status.HTTP_400_BAD_REQUEST)
     
+    # def get(self, request):
+    #     consulta = Productos.objects.all().values
+    #     console.log(consulta)
+    #     serializer = ProductoSerializer(consulta, many=True)
+    #     return Response({"Productos":serializer.data}, status=status.HTTP_200_OK)
+    
     def get(self, request):
         console.log(request.query_params)
         categoria = request.query_params['id']

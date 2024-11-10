@@ -26,22 +26,6 @@ import Cookies from 'js-cookie';
       throw error; 
     }
   }
-  Productos(2)
-
-  // export function formatearFecha(fecha) {
-  //   const fechaObj = new Date(fecha);
-  //   const opciones = {
-  //     dia: 'numeric',
-  //     mes: 'short',
-  //     año: 'numeric',
-  //     hora: 'numeric',
-  //     minuto: 'numeric',
-  //   };
-  
-  //   const fechaFormateada = `${fechaObj.getDate().toString().padStart(2, '0')} ${fechaObj.toLocaleString('es-ES', { month: 'short' })} ${fechaObj.getFullYear()}`;
-  
-  //   return fechaFormateada;
-  // }
 
   export async function listarProductos(data) {
     try {
@@ -55,6 +39,19 @@ import Cookies from 'js-cookie';
       throw error; 
     }
   }
+
+  export async function Clientes() {
+    try {
+      const response = await axios.get(`ventas/`);
+      const result= response.data;
+      console.log(result);
+      return result; 
+    } catch (error) {
+      console.log(error);
+      throw error; 
+    }
+  }
+  Clientes()
 
   // export async function deletePost(id) {
   //   // Confirmación de eliminación

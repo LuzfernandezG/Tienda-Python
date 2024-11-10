@@ -5,7 +5,7 @@ import router from '../router.js';
 import './style.css'
 
 // Correcting the baseURL by removing the extra colon
-axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+axios.defaults.baseURL = 'http://127.0.0.1:8001/';
 axios.defaults.withCredentials = true;
 
 const app = createApp(App);
