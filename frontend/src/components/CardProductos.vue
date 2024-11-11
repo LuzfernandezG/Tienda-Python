@@ -122,6 +122,7 @@ export default {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
+  color: black;
 }
 
 .descripcion {
@@ -171,6 +172,7 @@ export default {
   margin: 0 1rem;
   font-size: 1.5rem;
   font-weight: bold;
+  color:black;
 }
 
 .agregar {

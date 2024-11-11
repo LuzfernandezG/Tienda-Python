@@ -51,7 +51,21 @@ import Cookies from 'js-cookie';
       throw error; 
     }
   }
-  Clientes()
+ 
+  export async function agregarVenta(data) {
+    try {
+      const response = await axios.post('ventas/registro/', data);
+      console.log(response.data);
+      swallTrue(`Venta creada`);
+      return response; 
+    } catch (error) {
+      console.log(error);
+      swallError(`Error en la creacion de la publicacion: ${error.response?.data?.message || 'Error desconocido'}`);
+      throw error; 
+    }
+  }
+
+
 
   // export async function deletePost(id) {
   //   // Confirmación de eliminación

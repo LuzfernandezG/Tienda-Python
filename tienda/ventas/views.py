@@ -85,6 +85,8 @@ class Ventas(APIView):
             # console.log(serializer.data)
             console.log("Si SAlio SO")
             serializer.save()
+           
+                
             
             return Response(serializer.data, status=status.HTTP_201_CREATED)
     

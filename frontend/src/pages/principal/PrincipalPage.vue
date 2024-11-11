@@ -2,8 +2,15 @@
   <div class="fondo">
 
     <div class="catalogo">
-      
-    <h1 style="margin-top: 1rem;color:orange">Catálogo {{ nombre }}</h1>
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <h1 style="margin-top: 1rem;color:orange">Catálogo {{ nombre }}</h1>
+    <router-link style="text-decoration: none; color: white;" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24" class="cerrar" @click.prevent="DirigirPago"><path fill="currentColor" d="M6 5h11a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3M4 17a2 2 0 0 0 2 2h5v-3H4zm7-5H4v3h7zm6 7a2 2 0 0 0 2-2v-1h-7v3zm2-7h-7v3h7zM4 11h7V8H4zm8 0h7V8h-7z"/></svg>
+          </router-link>
+
+
+      </div>
+  
 
     <div class="barra-busqueda">
       <label for="categoria" class="label-categoria">Selecciona una categoría:</label>
@@ -51,12 +58,18 @@
 import { Categorias, Productos } from '../../../api';
 import { onMounted, ref } from 'vue';
 import CardProductos from '../../components/CardProductos.vue';
+import { swallConfirmation,swallError } from '../../../alerts';
+import { RouterLink, useRouter } from 'vue-router';
+
+
+
 
 export default {
   components: {
     CardProductos
   },
   setup() {
+    const router=useRouter()
     const categorias = ref([]);
     const productos = ref([]);
     const nombre = ref("");
@@ -102,6 +115,18 @@ export default {
      // Mostrar el contenido actualizado de pedido
       
     }
+
+    async function DirigirPago() {
+  const confirmacion = await swallConfirmation("¿Ir a pagar?");
+  if (confirmacion) {
+    if (pedido.value.length !== 0) {
+      router.push("/dashboard/pago");
+    } else {
+      swallError("No hay productos seleccionados para la compra");
+    }
+  }
+}
+    
     console.log(pedido)
     onMounted(async () => {
       await ListarCategorias();
@@ -114,6 +139,7 @@ export default {
       nombre,
       carrito,
       pedido,
+      DirigirPago
     
       
     };

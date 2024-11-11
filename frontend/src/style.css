@@ -20,7 +20,7 @@ html {
   background-position: center;  
   background-repeat: no-repeat;
 }
-h1,button,label,p{
+h1,button,label,p,h2{
   font-family: "League Spartan", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
