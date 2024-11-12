@@ -59,3 +59,49 @@ export const swallConfirmation = (mensaje) => {
     });
     return value || null;
   };
+
+
+
+  export const swallForm = async () => {
+    const { value: formValues } = await Swal.fire({
+      title: "Agregar Cliente",
+      html: `
+        <input id="nombre" placeholder="Nombre" type="text" class="swal2-input">
+        <input id="cedula" placeholder="Cédula" type="number" class="swal2-input">
+        <input id="correo" placeholder="Correo" type="email" class="swal2-input">
+        <input id="telefono" placeholder="Teléfono" type="number" class="swal2-input">
+      `,
+      focusConfirm: false,
+      preConfirm: () => {
+        return {
+          nombre: document.getElementById("nombre").value,
+          cedula: document.getElementById("cedula").value,
+          correo: document.getElementById("correo").value,
+          telefono: document.getElementById("telefono").value,
+        };
+      }
+    });
+  
+    if (formValues) {
+      return formValues; 
+    }
+    return null;
+  };
+
+  export const swallToast = async (texto) => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 1000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+  Toast.fire({
+    icon: "success",
+    title: texto
+  });
+}

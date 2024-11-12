@@ -69,6 +69,7 @@ export default {
     };
   },
   methods: {
+    
     incrementar() {
       // Corrige 'this.existencias' a 'this.existencia'
       if (this.cantidad < this.existencia) {
@@ -92,7 +93,12 @@ export default {
 
       }
       console.log("dato de la card", data);
-      this.carrito(data)
+      if(data.cantidad==0){
+        console.log("debe ser una cantidad superior a 0")
+      }else{
+        this.carrito(data)
+      }
+   
 
     }
   }

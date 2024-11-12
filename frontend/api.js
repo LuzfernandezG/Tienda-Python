@@ -65,6 +65,45 @@ import Cookies from 'js-cookie';
     }
   }
 
+  export async function AgregarCliente(data) {
+    try {
+      const response = await axios.post('ventas/', data);
+      console.log(response.data);
+      swallTrue(`Cliente agregado`);
+      return response; 
+    } catch (error) {
+      console.log(error);
+      swallError(`Error en la creacion del cliente`);
+      throw error; 
+    }
+  }
+
+  export async function ConsultarDeuda(cedula) {
+    try {
+      const response = await axios.get(`ventas/registro/?cc=${cedula}`);
+      const result= response.data;
+      swallTrue(`Deuda encontrada`);
+      console.log(result);
+      return result; 
+    } catch (error) {
+      swallError(`El cliente no tiene deudas o no existe`);
+      console.log(error);
+      throw error; 
+    }
+  }
+ 
+
+  export async function PanelVentas() {
+    try {
+      const response = await axios.get(`ventas/administrar`);
+      const result= response.data;
+      console.log(result);
+      return result; 
+    } catch (error) {
+      console.log(error);
+      throw error; 
+    }
+  }
 
 
   // export async function deletePost(id) {

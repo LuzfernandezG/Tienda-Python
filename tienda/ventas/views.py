@@ -130,3 +130,15 @@ class Ventas(APIView):
        
         
     #     return Response({"error" : "no se puede eliminar la categoria"}, status=status.HTTP_400_BAD_REQUEST
+class ManejoVentas(APIView):
+
+    def get(self, request):
+        ventas = Venta.objects.all()
+        serializer = VentaSerializer(ventas, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+        
+    
+        
+     
+         
