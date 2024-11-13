@@ -82,11 +82,10 @@ import Cookies from 'js-cookie';
     try {
       const response = await axios.get(`ventas/registro/?cc=${cedula}`);
       const result= response.data;
-      swallTrue(`Deuda encontrada`);
       console.log(result);
       return result; 
     } catch (error) {
-      swallError(`El cliente no tiene deudas o no existe`);
+      swallError(`El cliente no existe`);
       console.log(error);
       throw error; 
     }
@@ -96,6 +95,32 @@ import Cookies from 'js-cookie';
   export async function PanelVentas() {
     try {
       const response = await axios.get(`ventas/administrar`);
+      const result= response.data;
+      console.log(result);
+      return result; 
+    } catch (error) {
+      console.log(error);
+      throw error; 
+    }
+  }
+
+  
+  export async function AbonoDeudas(data) {
+    try {
+      const response = await axios.post(`ventas/administrar/`,data);
+      const result= response.data;
+      console.log(result);
+      return result; 
+    } catch (error) {
+      console.log(error);
+      throw error; 
+    }
+  }
+
+  export async function CerrarDeuda(id,cedula) {
+  
+    try {
+      const response = await axios.delete(`ventas/administrar/?id=${id}&cedula=${cedula}`);
       const result= response.data;
       console.log(result);
       return result; 

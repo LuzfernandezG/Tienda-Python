@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Cliente, Venta, VentaItems
+from .models import Cliente, Venta, VentaItems,AbonosCuentas
 from productos.models import Productos
 from productos.serializers import ProductoSerializer
 
@@ -65,6 +65,10 @@ class VentaSerializer(serializers.ModelSerializer):
         for item_data in ventas_data:
             # ImpresionTicketsItems.objects.create(id=pedido, **item_data)  # Crear cada detalle
             VentaItems.objects.create(id_venta=venta, **item_data)  # Crear cada detalle
+            # producto = Productos.objects.get(id=item_data["id_producto"])
+            producto = item_data["id_producto"]
+            producto.existencia = producto.existencia - item_data["cantidad"]
+            producto.save()
             total += item_data["total"] * item_data["cantidad"]
         console.log(total)
             
@@ -73,6 +77,16 @@ class VentaSerializer(serializers.ModelSerializer):
         # console.log(vars(venta))
         
         return venta
+    
+class AbonoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AbonosCuentas
+        fields = [
+            'cedula_cliente',
+            'valor',
+            'deuda_restante',
+            'fecha',
+        ]
         
         
 # class DetallePedidoSerializer(serializers.ModelSerializer):

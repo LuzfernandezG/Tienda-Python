@@ -88,6 +88,28 @@ export const swallConfirmation = (mensaje) => {
     return null;
   };
 
+
+  export const swallAbono = async () => {
+    const { value: formValues } = await Swal.fire({
+      title: "Agregar Abono",
+      html: `
+        <label>Valor a ingresar:</label>
+        <input id="valor" placeholder="Valor $" type="number" min="1" class="swal2-input">
+      `,
+      focusConfirm: false,
+      preConfirm: () => {
+        return {
+          valor: document.getElementById("valor").value,
+        };
+      }
+    });
+  
+    if (formValues) {
+      return formValues; 
+    }
+    return null;
+  };
+
   export const swallToast = async (texto) => {
   const Toast = Swal.mixin({
     toast: true,

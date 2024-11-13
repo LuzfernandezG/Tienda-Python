@@ -25,3 +25,11 @@ class VentaItems(models.Model):
     cantidad = models.IntegerField(max_length=10, null=True, blank=True)
     total = models.IntegerField(max_length=10, null=True, blank=True)
     id_venta = models.ForeignKey(Venta, on_delete=models.DO_NOTHING, verbose_name="Venta", related_name='items')
+
+
+class AbonosCuentas(models.Model):
+    id = models.AutoField(primary_key=True, verbose_name="id")
+    cedula_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='abonos', to_field='cedula')
+    valor = models.IntegerField(max_length=10, null=True, blank=True)
+    deuda_restante=models.IntegerField(max_length=10, null=True, blank=True)
+    fecha= models.DateField(auto_now_add=True)
