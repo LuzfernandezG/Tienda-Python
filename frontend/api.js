@@ -131,50 +131,34 @@ import Cookies from 'js-cookie';
   }
 
 
-  // export async function deletePost(id) {
-  //   // Confirmación de eliminación
-  //   const confirmed = await swallConfirmation("¿Seguro que desea eliminar la publicación?");
-  
-  //   if (!confirmed) return; // Salir si no se confirma
-  
-  //   try {
-  //     // Realizar solicitud DELETE
-  //     const response = await axios.delete(`/api/publicacion/${id}`);
-  //     console.log(response);
-  
-  //     // Mostrar mensaje de éxito
-  //     swallTrue(`${response.data.mensaje}`);
-  //     return response;
-  //   } catch (error) {
-  //     // Manejar error
-  //     console.error(error);
-  //     swallError(`Error al eliminar la publicación: ${error.response?.data?.message || 'Error desconocido'}`);
-  //     throw error;
-  //   }
-  // }
+  export async function DashboardGraficos() {
+    try {
+      const response = await axios.get(`reportes/`);
+      const result= response.data;
+      console.log(result);
+      return result; 
+    } catch (error) {
+      console.log(error);
+      throw error; 
+    }
+  }
 
-  // export async function editPost(id,data) {
-  //   // Confirmación de eliminación
-  //   const confirmed = await swallConfirmation("¿Seguro que desea cambiar la informacion?");
-  
-  //   if (!confirmed) return; 
-  
-  //   try {
-  //     // Realizar solicitud DELETE
-  //     const response = await axios.put(`/api/publicacion/${id}`,data);
-  //     console.log(response);
-  
-  //     // Mostrar mensaje de éxito
-  //     swallTrue(`${response.data.mensaje}`);
-  
-  //     return response;
-  //   } catch (error) {
-  //     // Manejar error
-  //     console.error(error);
-  //     swallError(`Error al eliminar la publicación: ${error.response?.data?.mensaje || 'Error desconocido'}`);
-  //     throw error;
-  //   }
-  // }
+  export async function Consultar(data) {
+    try {
+      const response = await axios.post(`reportes/`,data);
+      const result= response.data;
+      console.log(result);
+      swallTrue(`Encontrado`);
+      return result; 
+    } catch (error) {
+      console.log(error);
+      swallError(`Error de consulta`);
+      throw error; 
+    }
+  }
+
+
+
 
 
   
