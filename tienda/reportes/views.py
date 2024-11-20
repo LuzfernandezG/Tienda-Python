@@ -22,6 +22,11 @@ from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import IsAuthenticated
 from django.db import connection
 
+
+import pyautogui,webbrowser
+from time import sleep 
+
+
 class passTable(models.Model):
     pass
 
@@ -154,6 +159,17 @@ class Reporte(APIView):
               return Response(results, status=status.HTTP_200_OK)
           else:
               return Response({"mensaje": "No se encontraron resultados"}, status=status.HTTP_200_OK)
+            
+
+class Consulta(APIView):
+  
+    def get(self, request):
+      numero= "+573153609570"
+      webbrowser.open('https://web.whatsapp.com/send?phone='+numero)
+      sleep(5)
+      pyautogui.typewrite('prueba')
+      pyautogui.press('enter')
+      return Response({"consulta": "peticion get"}, status=status.HTTP_200_OK)
 
          
       

@@ -61,7 +61,7 @@
         </tr>
         <tr>
           <td>
-            <p>Total a pagar: ${{ totalPagar }}</p>
+            <p >Total a pagar: ${{ totalPagar }}</p>
           </td>
         </tr>
       </tbody>
@@ -101,7 +101,7 @@
 import { Clientes } from '../../../api';
 import { onMounted, ref, computed } from 'vue';
 import { swallError, swallConfirmation, swallTrue, swallForm } from '../../../alerts';
-import { agregarVenta, AgregarCliente } from '../../../api';
+import { agregarVenta, AgregarCliente,ApiWhatsapp } from '../../../api';
 import { useRouter } from 'vue-router';
 
 export default {
@@ -182,8 +182,32 @@ export default {
       const reponse = await agregarVenta(datosVenta);
       console.log(reponse);
       localStorage.removeItem("pedidos")
-      router.push("/dashboard/principal")
+      
+       if (filtro) {
+        const productosListados = productos.value
+    .map(
+      (producto, index) => 
+        `${index + 1}. 🛍️ Producto: *${producto.nombre}* | Cantidad: *${producto.cantidad}* | Precio: 💰 $${producto.precio} | Total: 💰 $${producto.precio * producto.cantidad}`
+    )
+    .join("\n");
 
+  const data = {
+    "message": `
+      HOLA!\n
+      ✨ *Estimado Cliente:* ${filtro.value[0].nombre},\n
+      🛒 Realizaste una compra por el valor de: 💰 ${totalPagar.value}\n
+      en 🏪 *Minimarket* 😊 -Colombia 🌍\n\n
+      📋 *Detalles de tu compra:*\n${productosListados}\n\n
+      🎉 *--GRACIAS POR SU COMPRA--* 🙌  
+          `,
+          "phone": `57${filtro.value[0].telefono}`
+        };
+
+      const mensaje = await ApiWhatsapp(data)
+      console.log(mensaje)
+
+       }
+      router.push("/dashboard/principal")
 
     };
 

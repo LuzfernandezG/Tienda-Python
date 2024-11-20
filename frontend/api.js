@@ -65,6 +65,35 @@ import Cookies from 'js-cookie';
     }
   }
 
+
+  export async function ApiWhatsapp(message) {7
+    console.log(message)
+    if (!message) {
+      throw new Error('Mesaje no proporcionado');
+    }
+    try {
+      const req1 = await fetch(`http://127.0.0.1:3001/lead`, {
+        method: 'POST',
+        mode:"cors",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(message), 
+      });
+  
+      if (!req1.ok) {
+        return { error: true, statusText: req1.statusText };
+      }
+   
+      const respuesta = await req1.json();
+      return respuesta;
+  
+    } catch (error) {
+      console.error('Error en la llamada a la API:', error);
+      return { error: true, message: error.message };
+    }
+  }
+
   export async function AgregarCliente(data) {
     try {
       const response = await axios.post('ventas/', data);
