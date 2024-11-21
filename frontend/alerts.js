@@ -110,6 +110,29 @@ export const swallConfirmation = (mensaje) => {
     return null;
   };
 
+  export const swallActualizar = async () => {
+    const { value: formValues } = await Swal.fire({
+      title: "Cambiar de Estado",
+      html: `
+           <select id="report-type" >
+            <option value="1">Finalizar</option>
+            <option value="2">En proceso</option>
+          </select>
+      `,
+      focusConfirm: false,
+      preConfirm: () => {
+        return {
+          estado: parseInt(document.getElementById("report-type").value),
+        };
+      }
+    });
+  
+    if (formValues) {
+      return formValues; 
+    }
+    return null;
+  };
+
   export const swallToast = async (texto) => {
   const Toast = Swal.mixin({
     toast: true,

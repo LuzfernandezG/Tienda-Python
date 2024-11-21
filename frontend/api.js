@@ -133,6 +133,18 @@ import Cookies from 'js-cookie';
     }
   }
 
+  export async function Actualizar(data) {
+    try {
+      const response = await axios.put(`ventas/registro/`,data);
+      const result= response.data;
+      console.log(result);
+      return result; 
+    } catch (error) {
+      console.log(error);
+      throw error; 
+    }
+  }
+
   
   export async function AbonoDeudas(data) {
     try {

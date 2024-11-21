@@ -86,6 +86,16 @@ class Ventas(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def put(self, request):
+        console.log(request.data)
+        
+        id=request.data['id']
+        estado=request.data['estado']
+        Venta.objects.filter(id=id).update(estado=estado)
+        
+        return Response({"peticion de edicion":"ok"}, status=status.HTTP_200_OK)
+    
 
      
 class ManejoVentas(APIView):

@@ -117,10 +117,6 @@ class Reporte(APIView):
       ''')
             columns = [col[0] for col in cursor.description]
             results = [dict(zip(columns, row)) for row in cursor.fetchall()]
-            # result = list(cursor.fetchall())
-
-        # queryset = QuerySet(model=passTable, using='default')
-        # queryset._result_cache = list(result)
             
         console.log(results)
         return Response(results,status=status.HTTP_200_OK)
@@ -138,8 +134,17 @@ class Reporte(APIView):
               '''
           elif tipo == 'month':
               query = '''
-                  SELECT * FROM ventas_venta
-                  WHERE MONTH(fecha) = MONTH(%s)
+                SELECT 
+                  DATE(fecha) AS fecha,
+                  SUM(total) AS total
+                FROM 
+                  ventas_venta
+                WHERE 
+                  MONTH(fecha) = MONTH(%s)
+                GROUP BY 
+                  DATE(fecha)
+                ORDER BY 
+                  fecha;
               '''
           elif tipo == 'day':
               query = '''

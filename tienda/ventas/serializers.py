@@ -42,6 +42,7 @@ class VentaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Venta
         fields = [
+            'id',
             'id_cliente',
             'metodo_de_pago',
             'metodo_de_venta',
