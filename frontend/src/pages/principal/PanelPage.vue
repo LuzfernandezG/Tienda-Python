@@ -23,7 +23,7 @@
         <tbody>
           <tr v-for="datos in ventasFiltradas" :key="datos.id_cliente">
             <td>{{ datos.id_cliente }}</td>
-            <td>{{ datos.metodo_de_pago == 1 ? '💳 Tarjeta' : datos.metodo_de_pago == 2 ? '💲 Efectivo​' : '🗳️​ Fiado'
+            <td>{{ datos.metodo_de_pago == 1 ? '💳 Tarjeta' : datos.metodo_de_pago == 2 ? '💲 Efectivo​' : datos.metodo_de_pago == 3 ? '🗳️Fiado':'Contra Entrega'
               }}</td>
             <td>{{ datos.metodo_de_venta == 1 ? '​🛒​ Presencial' : datos.metodo_de_venta == 2 ? '🛵 Domicilio' : '​➡️​Para Llevar' }}</td>
             <td>{{ datos.fecha }}</td>

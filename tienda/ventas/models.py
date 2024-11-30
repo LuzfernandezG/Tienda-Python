@@ -18,7 +18,6 @@ class Venta(models.Model):
     estado = models.IntegerField(max_length=10, null=True, blank=True) 
     fecha = models.DateField(auto_now_add=True)
     
-    
 class VentaItems(models.Model):
     id = models.AutoField(primary_key=True, verbose_name="id")
     id_producto = models.ForeignKey(Productos, on_delete=models.DO_NOTHING, verbose_name="cliente", related_name='cliente')

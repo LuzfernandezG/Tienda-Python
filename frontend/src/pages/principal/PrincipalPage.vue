@@ -27,7 +27,12 @@
         <CardProductos v-for="producto in productos" :key="producto.id" :titulo="producto.nombre"
           :descripcion="producto.descripcion" :precio="producto.precio" :existencia="producto.existencia"
           :id="producto.id" :ruta="producto.imagen" :carrito="carrito" />
+          <CardProductos v-for="producto in total" :key="producto.id" :titulo="producto.nombre"
+          :descripcion="producto.descripcion" :precio="producto.precio" :existencia="producto.existencia"
+          :id="producto.id" :ruta="producto.imagen" :carrito="carrito" />
+    
       </div>
+   
 
       
 
@@ -37,7 +42,7 @@
 </template>
 
 <script>
-import { Categorias, Productos } from '../../../api';
+import { Categorias, Productos,TotalProductos } from '../../../api';
 import { onMounted, ref } from 'vue';
 import CardProductos from '../../components/CardProductos.vue';
 import { swallConfirmation, swallError,swallToast } from '../../../alerts';
@@ -53,6 +58,7 @@ export default {
     const productos = ref([]);
     const nombre = ref("");
     const pedido = ref([]);
+    const total = ref([]);
 
 
     async function ListarCategorias() {
@@ -60,6 +66,21 @@ export default {
         const response = await Categorias();
         console.log(response);
         categorias.value = response.Categorias;
+      } catch (error) {
+        console.error("Error fetching categorias:", error);
+      }
+    }
+
+    async function Producticos() {
+      try {
+        const response = await TotalProductos();
+        console.log(response);
+        const direccionBase = 'http://127.0.0.1:8001';
+        response.Productos.forEach(producto => {
+          producto.imagen = `${direccionBase}${producto.imagen}`;
+        });
+        total.value = response.Productos;
+        console.log(total)
       } catch (error) {
         console.error("Error fetching categorias:", error);
       }
@@ -76,6 +97,7 @@ export default {
           producto.imagen = `${direccionBase}${producto.imagen}`;
         });
         productos.value = response.Productos;
+        total.value=[];
         console.log(productos.value);
 
 
@@ -113,6 +135,7 @@ export default {
     console.log(pedido)
     onMounted(async () => {
       await ListarCategorias();
+      await Producticos();
     });
 
     return {
@@ -122,7 +145,8 @@ export default {
       nombre,
       carrito,
       pedido,
-      DirigirPago
+      DirigirPago,
+      total,
 
 
     };

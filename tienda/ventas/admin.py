@@ -17,7 +17,7 @@ class categoriasAdmin(admin.ModelAdmin):
 @admin.register(Venta)
 class ProductosAdmin(admin.ModelAdmin):
     list_display = [
-        "id_cliente",
+        "cliente",
         "metodo_de_pago",
         "metodo_de_venta",
         "total",
@@ -25,12 +25,20 @@ class ProductosAdmin(admin.ModelAdmin):
         "fecha",
     ]
 
+    def cliente(self, obj):
+            return obj.id_cliente.nombre 
 
 @admin.register(VentaItems)
 class ProductosAdmin(admin.ModelAdmin):
     list_display = [
-        "id_producto",
+        "producto",
         "cantidad",
         "total",
-        "id_venta",
+        "venta",
     ]
+    
+    def producto(self, obj):
+        return obj.id_producto.nombre 
+    
+    def venta(self, obj):
+        return obj.id_venta.id

@@ -23,6 +23,7 @@
         <option :value="1">Tarjeta</option>
         <option :value="2">Efectivo</option>
         <option :value="3">Fiar</option>
+        <option :value="4">Contra Entrega</option>
       </select>
 
       <select v-model="datosVenta.metodo_de_venta">

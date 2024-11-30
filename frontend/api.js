@@ -27,6 +27,18 @@ import Cookies from 'js-cookie';
     }
   }
 
+  export async function TotalProductos() {
+    try {
+      const response = await axios.get(`productos/listar/`);
+      const result= response.data;
+      console.log(result);
+      return result; 
+    } catch (error) {
+      console.log(error);
+      throw error; 
+    }
+  }
+
   export async function listarProductos(data) {
     try {
       const response = await axios.post('/api/publicacion', data);

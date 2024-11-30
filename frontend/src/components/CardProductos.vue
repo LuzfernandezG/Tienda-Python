@@ -8,7 +8,7 @@
     
     <h1 class="titulo">{{ titulo }}</h1>
     <p class="descripcion">{{ descripcion }}</p>
-    <p class="precio">Precio: ${{ precio.toFixed(2) }}</p>
+    <p class="precio">Precio: ${{ precio}}</p>
     <p class="existencia">Existencia: {{ existencia }}</p>
 
     <div class="contador">
